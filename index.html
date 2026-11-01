@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Boekstuk: financiële Excel-sjablonen</title>
+  <meta name="description" content="Professionele financiële Excel-sjablonen voor jezelf en je bedrijf. Download het uitgavendashboard gratis.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <a class="logo" href="#top" aria-label="Boekstuk, naar boven">Boekstuk</a>
+  <nav aria-label="Hoofdmenu">
+    <a href="#gratis">Gratis dashboard</a>
+    <a href="#sjablonen">Sjablonen</a>
+    <a href="#faq">Veelgestelde vragen</a>
+  </nav>
+  <button class="cart-button" id="open-cart" type="button" aria-haspopup="dialog">
+    Winkelmand <span class="cart-count" id="cart-count" aria-label="aantal producten">0</span>
+  </button>
+</header>
+
+<main id="top">
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-text">
+      <h1>Financiële overzichten die gewoon kloppen</h1>
+      <p class="lead">Excel-sjablonen met formules, controles en een dashboard. Gemaakt door een controller met twaalf jaar ervaring, zodat jij niet zelf hoeft te puzzelen.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="uitgaven-dashboard.xlsx" download>Download het uitgavendashboard gratis</a>
+        <a class="btn btn-quiet" href="#sjablonen">Bekijk de betaalde sjablonen</a>
+      </div>
+    </div>
+
+    <!-- Decoratief spreadsheet-voorbeeld -->
+    <figure class="sheet" aria-label="Voorbeeld van het uitgavendashboard">
+      <div class="formula-bar"><span class="fx">fx</span><code>=SUMIFS(Transacties!D:D, Transacties!C:C, B4, …)</code></div>
+      <table>
+        <thead>
+          <tr><th></th><th>A</th><th>B</th><th>C</th><th>D</th></tr>
+        </thead>
+        <tbody>
+          <tr><th>1</th><td class="head">Categorie</td><td class="head num">Budget</td><td class="head num">Werkelijk</td><td class="head">Status</td></tr>
+          <tr><th>2</th><td>Wonen</td><td class="num">€ 1.150</td><td class="num">€ 1.150</td><td class="ok">Binnen budget</td></tr>
+          <tr><th>3</th><td>Boodschappen</td><td class="num">€ 450</td><td class="num">€ 409</td><td class="ok">Binnen budget</td></tr>
+          <tr><th>4</th><td class="picked">Uit eten &amp; uitjes</td><td class="num">€ 120</td><td class="num">€ 166</td><td class="over">Over budget</td></tr>
+          <tr><th>5</th><td>Kleding</td><td class="num">€ 75</td><td class="num">€ 135</td><td class="over">Over budget</td></tr>
+          <tr><th>6</th><td class="total">Totaal</td><td class="num total">€ 2.435</td><td class="num total">€ 2.373</td><td class="ok total">Binnen budget</td></tr>
+        </tbody>
+      </table>
+      <figcaption>Voorbeeld uit het gratis uitgavendashboard</figcaption>
+    </figure>
+  </section>
+
+  <!-- Gratis product -->
+  <section class="free" id="gratis" aria-labelledby="free-title">
+    <div class="free-body">
+      <h2 id="free-title">Uitgavendashboard: gratis</h2>
+      <p>Zie in één oogopslag waar je geld naartoe gaat. Vul je inkomsten en uitgaven in, kies een maand en het dashboard laat zien wat er binnen en buiten je budget valt.</p>
+      <ul class="check">
+        <li>Overzicht per maand met inkomsten, uitgaven, saldo en spaarquote</li>
+        <li>Budget en werkelijke uitgaven per categorie, met waarschuwing bij overschrijding</li>
+        <li>Drie grafieken en een jaaroverzicht</li>
+        <li>Voorbeeldgegevens om direct mee te spelen, zo weer gewist</li>
+      </ul>
+      <p class="fine">Excel-bestand (.xlsx), ongeveer 65 kB. Geen account of e-mailadres nodig.</p>
+    </div>
+    <div class="free-cta">
+      <p class="price free-price">Gratis</p>
+      <a class="btn btn-primary" id="download-free" href="uitgaven-dashboard.xlsx" download>Download gratis (.xlsx)</a>
+      <p class="status" id="download-status" role="status" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <!-- Betaalde sjablonen -->
+  <section class="shop" id="sjablonen" aria-labelledby="shop-title">
+    <h2 id="shop-title">Sjablonen voor ondernemers en financials</h2>
+    <p class="section-intro">Elk sjabloon is een los Excel-bestand met open formules. Je kunt alles aanpassen, niets is vergrendeld.</p>
+    <div class="product-grid" id="product-grid" aria-live="polite">
+      <!-- Wordt gevuld door script.js -->
+      <noscript>Zet JavaScript aan om de sjablonen te zien.</noscript>
+    </div>
+    <p class="fine">Testproject: de winkelmand werkt, maar er is nog geen betaalprovider gekoppeld. Prijzen zijn inclusief btw.</p>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq" id="faq" aria-labelledby="faq-title">
+    <h2 id="faq-title">Veelgestelde vragen</h2>
+    <details>
+      <summary>Welke versie van Excel heb ik nodig?</summary>
+      <p>Excel 2010 of nieuwer, ook Excel voor Mac en Microsoft 365. De bestanden werken verder in LibreOffice en Google Spreadsheets, al kunnen grafieken daar er iets anders uitzien.</p>
+    </details>
+    <details>
+      <summary>Zitten er macro's in de bestanden?</summary>
+      <p>Nee. Alles werkt met gewone formules, zodat je geen beveiligingsmelding krijgt en altijd kunt zien hoe een getal tot stand komt.</p>
+    </details>
+    <details>
+      <summary>Mag ik een sjabloon aanpassen?</summary>
+      <p>Ja. Je mag categorieën, formules en opmaak aanpassen voor eigen gebruik of voor je eigen bedrijf. Doorverkopen of delen met anderen is niet toegestaan.</p>
+    </details>
+    <details>
+      <summary>Wat als ik er niet uitkom?</summary>
+      <p>Elk sjabloon heeft een tabblad Instructies. Kom je er daarmee niet uit, stuur dan een bericht naar <a href="mailto:hallo@boekstuk.example">hallo@boekstuk.example</a>.</p>
+    </details>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <p>Boekstuk is een testproject. Alle producten, prijzen en bedragen zijn fictief.</p>
+  <p><a href="#top">Terug naar boven</a></p>
+</footer>
+
+<!-- Winkelmand -->
+<dialog class="cart" id="cart" aria-labelledby="cart-title">
+  <div class="cart-head">
+    <h2 id="cart-title">Winkelmand</h2>
+    <button type="button" class="icon-button" id="close-cart" aria-label="Winkelmand sluiten">Sluiten</button>
+  </div>
+  <div class="cart-body" id="cart-items"></div>
+  <div class="cart-foot">
+    <p class="total-row"><span>Totaal (incl. btw)</span> <strong id="cart-total">€ 0,00</strong></p>
+    <button type="button" class="btn btn-primary btn-block" id="checkout" disabled>Afrekenen</button>
+    <p class="status" id="checkout-status" role="status" aria-live="polite"></p>
+  </div>
+</dialog>
+
+<script src="script.js"></script>
+</body>
+</html>

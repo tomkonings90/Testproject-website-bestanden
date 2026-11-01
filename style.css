@@ -1,0 +1,376 @@
+/* Boekstuk: stijl
+   Idee: de hele site leent de logica van een spreadsheet. Lijnen, cellen en één geselecteerde cel in groen. */
+
+:root {
+  --paper: #f3f5f2;
+  --cell: #ffffff;
+  --mist: #e8eeea;
+  --line: #c4cfc7;
+  --ink: #13233a;
+  --muted: #4a5868;
+  --green: #1f7a5c;
+  --green-dark: #17604a;
+  --alert: #b3382a;
+  --radius: 4px;
+  --wrap: 1120px;
+  --font-head: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+}
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  line-height: 1.55;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-head);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  margin: 0 0 0.6em;
+}
+
+h1 { font-size: clamp(2.25rem, 5.2vw, 3.75rem); letter-spacing: -0.025em; }
+h2 { font-size: clamp(1.6rem, 3vw, 2.1rem); }
+h3 { font-size: 1.2rem; margin-bottom: 0.35em; }
+
+p { margin: 0 0 1em; }
+a { color: var(--green-dark); }
+
+:focus-visible {
+  outline: 3px solid var(--ink);
+  outline-offset: 2px;
+}
+
+/* ---------- Header ---------- */
+.site-header {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  max-width: var(--wrap);
+  margin: 0 auto;
+  padding: 1.1rem 1.25rem;
+}
+
+.logo {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 1.5rem;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.site-header nav { display: flex; gap: 1.5rem; margin-right: auto; }
+.site-header nav a { color: var(--ink); text-decoration: none; font-weight: 600; padding: 0.25rem 0; border-bottom: 2px solid transparent; }
+.site-header nav a:hover { border-bottom-color: var(--green); }
+
+.cart-button {
+  font: inherit;
+  font-weight: 600;
+  color: var(--ink);
+  background: var(--cell);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 0.5rem 0.9rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+.cart-button:hover { border-color: var(--ink); }
+
+.cart-count {
+  min-width: 1.5rem;
+  padding: 0 0.4rem;
+  border-radius: 999px;
+  background: var(--mist);
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  font-size: 0.9rem;
+}
+.cart-count.has-items { background: var(--green); color: #fff; }
+
+/* ---------- Layout helpers ---------- */
+main > section {
+  max-width: var(--wrap);
+  margin: 0 auto;
+  padding: 3rem 1.25rem;
+}
+
+.fine { font-size: 0.9rem; color: var(--muted); }
+.section-intro { color: var(--muted); max-width: 60ch; margin-bottom: 1.75rem; }
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-block;
+  font: inherit;
+  font-weight: 600;
+  text-decoration: none;
+  text-align: center;
+  border-radius: var(--radius);
+  padding: 0.75rem 1.25rem;
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+.btn-primary { background: var(--green); color: #fff; }
+.btn-primary:hover { background: var(--green-dark); }
+.btn-primary:disabled { background: var(--line); color: var(--muted); cursor: not-allowed; }
+.btn-quiet { color: var(--ink); text-decoration: underline; text-underline-offset: 0.2em; padding-left: 0.5rem; padding-right: 0.5rem; }
+.btn-quiet:hover { color: var(--green-dark); }
+.btn-block { display: block; width: 100%; }
+
+/* ---------- Hero ---------- */
+main > .hero {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 2.5rem;
+  align-items: center;
+  padding-top: 2rem;
+  padding-bottom: 3.5rem;
+}
+
+.lead { font-size: 1.2rem; color: var(--muted); max-width: 44ch; }
+.hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1rem; margin-top: 1.75rem; }
+
+/* Spreadsheet-voorbeeld */
+.sheet {
+  margin: 0;
+  background: var(--cell);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.formula-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid var(--line);
+  background: var(--mist);
+  font-size: 0.85rem;
+}
+.formula-bar .fx { font-family: var(--font-head); font-style: italic; font-weight: 700; color: var(--muted); }
+.formula-bar code { font-family: "Consolas", "Menlo", monospace; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+.sheet table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+.sheet th,
+.sheet td { border: 1px solid var(--line); padding: 0.45rem 0.6rem; text-align: left; white-space: nowrap; }
+.sheet thead th { background: var(--mist); font-weight: 600; color: var(--muted); text-align: center; }
+.sheet tbody th { background: var(--mist); font-weight: 400; color: var(--muted); text-align: center; width: 2.5rem; }
+.sheet tr > :first-child { border-left: 0; }
+.sheet tr > :last-child { border-right: 0; }
+.sheet thead tr:first-child > * { border-top: 0; }
+.sheet tbody tr:last-child > * { border-bottom: 0; }
+.sheet .head { font-weight: 600; background: #f8faf8; }
+.sheet .num { text-align: right; font-variant-numeric: tabular-nums; }
+.sheet .total { font-weight: 600; background: #f8faf8; }
+.sheet .ok { color: var(--green-dark); font-weight: 600; }
+.sheet .over { color: var(--alert); font-weight: 600; }
+.sheet .picked { outline: 2px solid var(--green); outline-offset: -2px; }
+.sheet figcaption { padding: 0.6rem 0.75rem; font-size: 0.85rem; color: var(--muted); border-top: 1px solid var(--line); }
+
+/* ---------- Gratis product ---------- */
+main > .free {
+  display: grid;
+  grid-template-columns: 1fr 18rem;
+  width: min(calc(var(--wrap) - 2.5rem), calc(100% - 2.5rem));
+  padding: 0;
+  margin-bottom: 1.5rem;
+  background: var(--cell);
+  border: 1px solid var(--line);
+  border-left: 5px solid var(--green);
+  border-radius: var(--radius);
+}
+
+.free-body { padding: 2rem 2rem 1.25rem; }
+.free-body p { max-width: 60ch; }
+
+.check { list-style: none; margin: 1rem 0 1.25rem; padding: 0; }
+.check li { position: relative; padding-left: 1.6rem; margin-bottom: 0.45rem; }
+.check li::before {
+  content: "";
+  position: absolute;
+  left: 0.15rem;
+  top: 0.45em;
+  width: 0.55rem;
+  height: 0.3rem;
+  border-left: 2px solid var(--green);
+  border-bottom: 2px solid var(--green);
+  transform: rotate(-45deg);
+}
+
+.free-cta {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 2rem 1.5rem;
+  background: var(--mist);
+  border-left: 1px solid var(--line);
+}
+.free-cta .price { margin: 0; }
+.free-price { font-family: var(--font-head); font-weight: 700; font-size: 2.5rem; line-height: 1; }
+
+.status { margin: 0; min-height: 1.4em; font-size: 0.95rem; color: var(--green-dark); }
+
+/* ---------- Winkel ---------- */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.product {
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+  background: var(--cell);
+}
+.product p { color: var(--muted); }
+.product .includes { margin: 0 0 1.25rem; padding-left: 1.1rem; font-size: 0.95rem; color: var(--muted); }
+.product .includes li { margin-bottom: 0.2rem; }
+.product-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+}
+.product .price { margin: 0; font-family: var(--font-head); font-weight: 700; font-size: 1.5rem; font-variant-numeric: tabular-nums; color: var(--ink); }
+.product .btn { padding: 0.55rem 1rem; }
+.product .btn.added { background: var(--mist); color: var(--green-dark); border-color: var(--green); }
+
+/* ---------- FAQ ---------- */
+.faq h2,
+.faq details { max-width: 52rem; }
+.faq details { border-top: 1px solid var(--line); padding: 0.9rem 0; }
+.faq details:last-of-type { border-bottom: 1px solid var(--line); }
+.faq summary { font-weight: 600; cursor: pointer; list-style: none; display: flex; justify-content: space-between; gap: 1rem; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; font-family: var(--font-head); font-size: 1.3rem; line-height: 1; color: var(--green-dark); }
+.faq details[open] summary::after { content: "\2212"; }
+.faq details p { margin: 0.7rem 0 0; color: var(--muted); max-width: 60ch; }
+
+/* ---------- Footer ---------- */
+.site-footer {
+  max-width: var(--wrap);
+  margin: 2rem auto 0;
+  padding: 1.5rem 1.25rem 2.5rem;
+  border-top: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+.site-footer p { margin: 0; }
+
+/* ---------- Winkelmand (dialog) ---------- */
+dialog.cart {
+  margin: 0 0 0 auto;
+  width: min(26rem, 100%);
+  height: 100%;
+  max-height: 100%;
+  padding: 0;
+  border: 0;
+  border-left: 1px solid var(--line);
+  background: var(--paper);
+  color: var(--ink);
+}
+dialog.cart[open] { display: flex; flex-direction: column; }
+dialog.cart::backdrop { background: rgba(19, 35, 58, 0.45); }
+
+.cart-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.1rem 1.25rem;
+  border-bottom: 1px solid var(--line);
+  background: var(--cell);
+}
+.cart-head h2 { margin: 0; font-size: 1.4rem; }
+.icon-button {
+  font: inherit;
+  font-weight: 600;
+  color: var(--ink);
+  background: none;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 0.35rem 0.8rem;
+  cursor: pointer;
+}
+.icon-button:hover { border-color: var(--ink); }
+
+.cart-body { flex: 1; overflow-y: auto; padding: 0.5rem 1.25rem; }
+.cart-empty { color: var(--muted); padding: 1.5rem 0; }
+
+.cart-line { padding: 1rem 0; border-bottom: 1px solid var(--line); }
+.cart-line-top { display: flex; justify-content: space-between; gap: 1rem; font-weight: 600; }
+.cart-line-top span:last-child { font-variant-numeric: tabular-nums; }
+.cart-line-controls { display: flex; align-items: center; gap: 0.5rem; margin-top: 0.6rem; }
+.qty-button {
+  width: 2rem;
+  height: 2rem;
+  font: inherit;
+  font-weight: 600;
+  background: var(--cell);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+.qty-button:hover { border-color: var(--ink); }
+.qty { min-width: 1.5rem; text-align: center; font-variant-numeric: tabular-nums; }
+.remove-button {
+  margin-left: auto;
+  font: inherit;
+  font-size: 0.9rem;
+  background: none;
+  border: 0;
+  color: var(--alert);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.cart-foot { padding: 1.1rem 1.25rem 1.25rem; border-top: 1px solid var(--line); background: var(--cell); }
+.total-row { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.9rem; }
+.total-row strong { font-family: var(--font-head); font-size: 1.5rem; font-variant-numeric: tabular-nums; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 860px) {
+  main > .hero { grid-template-columns: 1fr; gap: 2rem; }
+  main > .free { grid-template-columns: 1fr; }
+  .free-cta { border-left: 0; border-top: 1px solid var(--line); }
+  .site-header { flex-wrap: wrap; gap: 0.75rem 1rem; }
+  .site-header nav { order: 3; width: 100%; gap: 1.25rem; margin-right: 0; flex-wrap: wrap; }
+  .cart-button { margin-left: auto; }
+  .sheet { overflow-x: auto; }
+}
+
+@media (max-width: 480px) {
+  .free-body { padding: 1.5rem 1.25rem 1rem; }
+  .product-foot { flex-wrap: wrap; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
